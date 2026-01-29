@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
-# test-git-actions.sh
+
+oldpwd="$(pwd)"
+function on_exit () {
+  cd "$oldpwd"
+}
+trap on_exit EXIT ERR SIGINT SIGTERM
+
+cd "$(dirname "$(realpath "$0")")"
 
 ./make-changes.sh
 ./push-changes.sh
 ./fetch-changes.sh
-
-echo "Všetky git akcie boli vykonané."
 
